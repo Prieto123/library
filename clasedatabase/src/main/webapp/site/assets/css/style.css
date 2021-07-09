@@ -1,0 +1,36 @@
+body {
+	background: #292841;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.libro {
+    max-width: 800px !important;
+    padding: 5vh 30px;
+    min-height: 100vh;
+    margin: auto;
+    background: url(../img/hoja.png);
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+.nav-link, .nav-item {
+    color: black;
+    
+}
+
+.navbar-expand-lg .navbar-nav {
+    margin-left: auto;
+    padding: 15px 15px;
+}
+
+a.nav-link {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.nav-link:hover {
+    color: seagreen;
+}
+
+.id {
+	width: 20px !important;
+}
