@@ -27,28 +27,27 @@ import javax.persistence.Table;
 
 public class Libro implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 	@Id
-	private long isbn;//Esta tontera me esta lec estoy seguro q esto esta ok
-	// porque si se dio cuenta los set funcionaron todos, se cayo al poner add aaaa
-	@Column(name="titulo")
+	private long isbn;
+	
 	private String titulo;
-	@Column(name="paginas")
 	private int paginas;
-	@Column(name="ano_publicado")
 	private int ano_publicado;
+	//private int editoriales_id;
 	
-	//@ManyToOne
-	//@JoinColumn(name="editoriales_id")
-	//Editorial editoriales_id;
-	
-	private int editoriales_id;
-	
+
+	@ManyToOne
+	@JoinColumn(name="editoriales_id")
+	Editorial ed;
 	
 	
+	public Editorial getEd() {
+		return ed;
+	}
+	public void setEd(Editorial ed) {
+		this.ed = ed;
+	}
 	public long getIsbn() {
 		return isbn;
 	}
@@ -73,18 +72,17 @@ public class Libro implements Serializable{
 	public void setAno_publicado(int ano_publicado) {
 		this.ano_publicado = ano_publicado;
 	}
-	public int getEditoriales_id() {
+	/*public int getEditoriales_id() {
 		return editoriales_id;
 	}
 	public void setEditoriales_id(int editoriales_id) {
 		this.editoriales_id = editoriales_id;
+	}*/
+	@Override
+	public String toString() {
+		return "Libro [isbn=" + isbn + ", titulo=" + titulo + ", paginas=" + paginas + ", ano_publicado="
+				+ ano_publicado + ", editoriales_id=" +ed+ "]";
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-	
 	
 
 }

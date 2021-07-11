@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import Model.Editorial;
 import Model.Libro;
 
 /**
@@ -75,7 +76,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase
 			origen.setTitulo(l.getTitulo());
 			origen.setPaginas(l.getPaginas());
 			origen.setAno_publicado(l.getAno_publicado());
-			origen.setEditoriales_id(l.getEditoriales_id());
+			origen.setEd(l.getEd());
 			
 			em.merge(origen);
 			em.flush();

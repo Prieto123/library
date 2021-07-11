@@ -53,6 +53,17 @@ public class EditorialesService implements EditorialesServiceLocal {
 			em.close();
 		}
 	}
+	
+	public List<Editorial> get() {
+		EntityManager em = this.emf.createEntityManager();
+		try {
+			return em.createNamedQuery("Editorial.get", Editorial.class).getResultList();
+		} catch(Exception e) {
+			return null;
+		} finally {
+			em.close();
+		}
+	}
 
 	@Override
 	public void remove(Editorial ed) {
