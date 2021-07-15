@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.Autor;
 import Model.Editorial;
 import Model.Libro;
 import Servicios.EditorialesServiceLocal;
@@ -34,36 +35,19 @@ public class CrearLibro extends HttpServlet {
     
     @Inject
     private EditorialesServiceLocal editorialService;
+    @Inject
     private LibrosServiceLocal libroService;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		Libro libro = new Libro();
-		/*libro.setIsbn(			Long.parseLong(request.getParameter("isbn")));
-		libro.setTitulo(		request.getParameter("titulo"));
-		libro.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
-		libro.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
-		libro.setEditoriales_id(Integer.parseInt(request.getParameter("editorial")));*/
-		
-		libro.setIsbn(			Long.parseLong("222222221121")); // tienen q ser 13 numeros 
-		libro.setTitulo(		"test");
-		libro.setPaginas(		12);
-		libro.setAno_publicado(	2020);
-		libro.setEditoriales_id(1);
-		libroService.add(libro); //la medi vendida.. ya pero ejecutemos 
-		/*
-		
-		
 		List<Editorial> editoriales = new ArrayList<Editorial>();
 		editoriales = editorialService.getAll();
 		request.setAttribute("editoriales", editoriales);
 		
 		request.getRequestDispatcher("site/crearlibro.jsp").forward(request, response);
-		*/
+		
 	}
 
 	/**
@@ -73,8 +57,9 @@ public class CrearLibro extends HttpServlet {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		
-		long longsito = Long.parseLong(request.getParameter("isbn"));
-		out.println(longsito);
+		/*long longsito = Long.parseLong(request.getParameter("isbn"));
+		out.println(longsito);*/
+		out.println(request.getParameter("isbn2"));
 		out.println(request.getParameter("titulo"));
 		out.println(Integer.parseInt(request.getParameter("paginas")));
 		out.println(Integer.parseInt(request.getParameter("ano")));
@@ -82,22 +67,20 @@ public class CrearLibro extends HttpServlet {
 		
 		
 		
-		Libro libro = new Libro();
-		/*libro.setIsbn(			Long.parseLong(request.getParameter("isbn")));
-		libro.setTitulo(		request.getParameter("titulo"));
-		libro.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
-		libro.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
-		libro.setEditoriales_id(Integer.parseInt(request.getParameter("editorial")));*/
-		
-		libro.setIsbn(			Long.parseLong("222222221121")); // tienen q ser 13 numeros 
-		libro.setTitulo(		"test");
-		libro.setPaginas(		12);
-		libro.setAno_publicado(	2020);
-		//libro.setEditoriales_id(1);
 		
 		
-		libroService.add(libro);
-		//response.sendRedirect("Home.do");
+		Libro l = new Libro();
+		Editorial e=new Editorial();
+		
+		l.setIsbn(			Long.parseLong(request.getParameter("isbn")));
+		l.setTitulo(		request.getParameter("titulo"));
+		l.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
+		l.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
+		l.setEd(e);
+		
+		libroService.add(l); 
+		
+		response.sendRedirect("Home.do");
 		
 		
 	}

@@ -1,5 +1,6 @@
 package Servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import Model.Autor;
 import Model.Editorial;
 import Model.Libro;
 
@@ -77,6 +79,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase
 			origen.setPaginas(l.getPaginas());
 			origen.setAno_publicado(l.getAno_publicado());
 			origen.setEd(l.getEd());
+			origen.setAutorList(l.getAutorList());
 			
 			em.merge(origen);
 			em.flush();
@@ -87,5 +90,26 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase
 		}
 	}
 	
-
+	@Override
+	public void addAutor(Libro l, Autor a) {
+		// TODO Auto-generated method stub
+		EntityManager em = this.emf.createEntityManager();
+		try {
+			Libro origen = em.find(Libro.class, l.getIsbn());
+			origen.setTitulo(origen.getTitulo());
+			origen.setPaginas(origen.getPaginas());
+			origen.setAno_publicado(origen.getAno_publicado());
+			origen.setEd(origen.getEd());
+			List<Autor> autores = new ArrayList<Autor>();
+			autores = origen.getAutorList();
+			autores.add(a);
+			origen.setAutorList(autores);
+			em.merge(origen);
+			em.flush();
+		} catch(Exception e) {
+			
+		} finally {
+			em.close();
+		}
+	}
 }

@@ -34,3 +34,7 @@ a.nav-link:hover {
 .id {
 	width: 20px !important;
 }
+
+#titulo {
+	text-align: center;
+}

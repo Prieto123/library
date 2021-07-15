@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
 <jsp:include page="common/head.jsp" />
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-                                    <!-- Page-body start -->
-
-		<!--<form action="Home.do" method="POST">
-			<input type="text" name="nombrePersona" placeholder="Nombre">
-			<input type="text" name="apellidosPersona" placeholder="Apellidos">
-			<input type="text" name="rut" placeholder="Rut">
-			<input type="date" name="fecha" placeholder="Fecha Nacimiento">
-			<input type="text" name="foto" placeholder="Foto">
-			<input type="text" name="direccion" placeholder="Direccion">
-			<input type="number" name="ciudad" placeholder="Id Ciudad">
-			
-			<button>holi</button>
-		</form>-->     	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  	
         <br>
         <hr>
         
@@ -36,7 +22,7 @@
 					    <td><c:out value="${ libro.getTitulo() }"/></td>
 					    <td><c:out value="${ libro.getPaginas() }"/></td>
 					    <td><c:out value="${ libro.getAno_publicado() }"/></td>
-						<td>Ver</td>
+						<td><a href="DetalleLibro.do?isbn=<c:out value="${ libro.getIsbn() }"/>">Ver</a></td>
 				   	</tr>
 		        </c:forEach>
 		  </tbody>

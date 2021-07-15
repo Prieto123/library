@@ -4,5 +4,8 @@
 		<jta-data-source>libraryJNDI</jta-data-source>
 		<class>Model.Libro</class>
 		<class>Model.Editorial</class>
+		<class>Model.Autor</class>
+		<class>Model.Categoria</class>
+		<class>Model.Idioma</class>
 	</persistence-unit>
 </persistence>

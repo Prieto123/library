@@ -1,13 +1,18 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,15 +38,52 @@ public class Libro implements Serializable{
 	
 	private String titulo;
 	private int paginas;
-	private int ano_publicado;
-	//private int editoriales_id;
-	
+	private int ano_publicado;	
 
 	@ManyToOne
 	@JoinColumn(name="editoriales_id")
 	Editorial ed;
 	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE}) 
+	@JoinTable(
+			name="libros_has_autores",
+			joinColumns=@JoinColumn(name="libros_isbn"),
+			inverseJoinColumns =@JoinColumn(name="autores_id")
+	)
+	private List<Autor> AutorList = new ArrayList<Autor>();
+	@JoinTable(
+			name = "libros_has_categorias",
+			joinColumns = @JoinColumn(name = "libros_isbn"),
+			inverseJoinColumns = @JoinColumn(name = "categorias_id")
+			)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Categoria> categorias;
+	@JoinTable(
+			name = "libros_has_idiomas",
+			joinColumns = @JoinColumn(name = "libros_isbn"),
+			inverseJoinColumns = @JoinColumn(name = "idiomas_id")
+			)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Idioma> idiomas;
 	
+	public List<Autor> getAutorList() {
+		return AutorList;
+	}
+	public void setAutorList(List<Autor> autorList) {
+		AutorList = autorList;
+	}
+	public List<Idioma> getIdiomas() {
+		return idiomas;
+	}
+	public void setIdiomas(List<Idioma> idiomas) {
+		this.idiomas = idiomas;
+	}
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+	public void setCategoria(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 	public Editorial getEd() {
 		return ed;
 	}
