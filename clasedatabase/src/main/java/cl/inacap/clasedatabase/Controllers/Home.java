@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.Ejemplar;
+import Model.Estado;
 import Model.Libro;
+import Servicios.EjemplaresServiceLocal;
+import Servicios.EstadosServiceLocal;
 import Servicios.LibrosService;
 import Servicios.LibrosServiceLocal;
 
@@ -39,6 +43,10 @@ public class Home extends HttpServlet {
     
     @Inject
     private LibrosServiceLocal libroService;
+    @Inject
+    private EjemplaresServiceLocal ejemplarService;
+    @Inject
+    private EstadosServiceLocal estadoService;
     
     
     public static Date parseDate(String date) {
@@ -58,6 +66,15 @@ public class Home extends HttpServlet {
 		List<Libro> libros = new ArrayList<Libro>();
 		libros = libroService.getAll();
 		request.setAttribute("libros", libros);
+		
+		List<Ejemplar> ejemplares = new ArrayList<Ejemplar>();
+		ejemplares = ejemplarService.getAll();
+		request.setAttribute("ejemplares", ejemplares);
+		
+		List<Estado> estados = new ArrayList<Estado>();
+		estados = estadoService.getAll();
+		request.setAttribute("estados", estados);
+		
 		libroService.getAll().stream().forEach(l->out.println(l.getTitulo()));
 		request.getRequestDispatcher("site/home.jsp").forward(request, response);
 		

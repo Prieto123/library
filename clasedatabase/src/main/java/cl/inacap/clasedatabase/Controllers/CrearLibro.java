@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.Autor;
+import Model.Categoria;
 import Model.Editorial;
+import Model.Idioma;
 import Model.Libro;
 import Servicios.EditorialesServiceLocal;
 import Servicios.LibrosServiceLocal;
@@ -54,29 +56,29 @@ public class CrearLibro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
-		
-		/*long longsito = Long.parseLong(request.getParameter("isbn"));
-		out.println(longsito);*/
-		out.println(request.getParameter("isbn2"));
-		out.println(request.getParameter("titulo"));
-		out.println(Integer.parseInt(request.getParameter("paginas")));
-		out.println(Integer.parseInt(request.getParameter("ano")));
-		out.println(Integer.parseInt(request.getParameter("editorial")));
-		
-		
-		
-		
-		
 		Libro l = new Libro();
 		Editorial e=new Editorial();
+		
+		List<Editorial> editoriales = new ArrayList<Editorial>();
+		editoriales = editorialService.getAll();
+		for(Editorial editorial : editoriales) {
+			if(editorial.getId() == Integer.parseInt(request.getParameter("editorial"))) {
+				e.setId(editorial.getId());
+				e.setEditorial(editorial.getEditorial());
+			}
+		}
+		List<Autor> autores = new ArrayList<Autor>();
+		List<Categoria> categorias = new ArrayList<Categoria>();
+		List<Idioma> idiomas = new ArrayList<Idioma>();
 		
 		l.setIsbn(			Long.parseLong(request.getParameter("isbn")));
 		l.setTitulo(		request.getParameter("titulo"));
 		l.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
 		l.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
 		l.setEd(e);
+		l.setAutorList(		autores);
+		l.setCategoria(		categorias);
+		l.setIdiomas(		idiomas);
 		
 		libroService.add(l); 
 		

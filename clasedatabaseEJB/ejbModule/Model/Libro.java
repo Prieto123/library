@@ -24,10 +24,7 @@ import javax.persistence.Table;
 @Table(name="libros")
 
 @NamedQueries({
-	
-	@NamedQuery(name="Libro.getAll", query="select l from Libro l")
-	
-	
+	@NamedQuery(name="Libro.getAll", query="select l from Libro l")	
 })
 
 public class Libro implements Serializable{
@@ -51,20 +48,20 @@ public class Libro implements Serializable{
 			inverseJoinColumns =@JoinColumn(name="autores_id")
 	)
 	private List<Autor> AutorList = new ArrayList<Autor>();
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE}) 
 	@JoinTable(
-			name = "libros_has_categorias",
-			joinColumns = @JoinColumn(name = "libros_isbn"),
-			inverseJoinColumns = @JoinColumn(name = "categorias_id")
-			)
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Categoria> categorias;
+			name="libros_has_categorias",
+			joinColumns=@JoinColumn(name="libros_isbn"),
+			inverseJoinColumns =@JoinColumn(name="categorias_id")
+	)
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(
 			name = "libros_has_idiomas",
 			joinColumns = @JoinColumn(name = "libros_isbn"),
 			inverseJoinColumns = @JoinColumn(name = "idiomas_id")
 			)
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Idioma> idiomas;
+	private List<Idioma> idiomas = new ArrayList<Idioma>();
 	
 	public List<Autor> getAutorList() {
 		return AutorList;

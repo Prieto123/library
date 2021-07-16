@@ -80,6 +80,8 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase
 			origen.setAno_publicado(l.getAno_publicado());
 			origen.setEd(l.getEd());
 			origen.setAutorList(l.getAutorList());
+			origen.setCategoria(l.getCategorias());
+			origen.setIdiomas(l.getIdiomas());
 			
 			em.merge(origen);
 			em.flush();

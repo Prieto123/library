@@ -7,5 +7,7 @@
 		<class>Model.Autor</class>
 		<class>Model.Categoria</class>
 		<class>Model.Idioma</class>
+		<class>Model.Estado</class>
+		<class>Model.Ejemplar</class>
 	</persistence-unit>
 </persistence>

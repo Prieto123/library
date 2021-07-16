@@ -46,7 +46,7 @@ public class IdiomasService implements IdiomasServiceLocal {
 	public List<Idioma> getAll() {
 		EntityManager em = this.emf.createEntityManager();
 		try {
-			return em.createNamedQuery("Autor.getAll", Idioma.class).getResultList();
+			return em.createNamedQuery("Idioma.getAll", Idioma.class).getResultList();
 		} catch(Exception e) {
 			return null;
 		} finally {

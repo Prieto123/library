@@ -20,6 +20,7 @@ import Model.Libro;
 import Servicios.AutoresServiceLocal;
 import Servicios.CategoriasServiceLocal;
 import Servicios.EditorialesServiceLocal;
+import Servicios.IdiomasServiceLocal;
 import Servicios.LibrosServiceLocal;
 
 /**
@@ -45,6 +46,8 @@ public class DetalleLibro extends HttpServlet {
     private AutoresServiceLocal autorService;
     @Inject
     private CategoriasServiceLocal categoriaService;
+    @Inject
+    private IdiomasServiceLocal idiomaService;
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,6 +60,8 @@ public class DetalleLibro extends HttpServlet {
 		listaAutores = autorService.getAll();
 		List<Categoria> listaCategorias = new ArrayList<Categoria>();
 		listaCategorias = categoriaService.getAll();
+		List<Idioma> listaIdiomas = new ArrayList<Idioma>();
+		listaIdiomas = idiomaService.getAll();
 		request.setAttribute("editoriales", editoriales);
 		
 		
@@ -94,6 +99,7 @@ public class DetalleLibro extends HttpServlet {
 		request.setAttribute("idiomas", idiomas);
 		request.setAttribute("listaAutores", listaAutores);
 		request.setAttribute("listaCategorias", listaCategorias);
+		request.setAttribute("listaIdiomas", listaIdiomas);
 		
 		request.getRequestDispatcher("site/verlibro.jsp").forward(request, response);
 		

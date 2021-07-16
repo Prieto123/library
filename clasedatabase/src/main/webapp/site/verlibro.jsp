@@ -91,7 +91,7 @@
 					<c:forEach var="idioma" items="${idiomas}">
 						<a href="#" class="list-group-item list-group-item-action bg-transparent"><c:out value="${ idioma.getNombre() }"/></a>
 			    	</c:forEach>
-			    	<a class="btn btn-dark">Agregar Idioma</a>
+			    	<button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#crearIdioma">Agregar Idioma</button>
 			    </div>
 			</div>
 			
@@ -208,10 +208,17 @@
 		      </div>
 		      <form action="AgregarCategoria.do" method="POST">
 		      	<div class="modal-body">
+		      		<div class="form-group row" style="display: none;">
+			        	<label for="ISBN3" class="col-2 col-form-label">ISBN</label>
+			        	<div class="col-10">
+			            	<input type="number" class="form-control ps-2" id="ISBN3" name="isbn"
+			            	value="${ isbn }" min="1000000000000" max="9999999999999" readonly>
+			        	</div>
+			        </div>
 		        	<div class="form-group row">
-				    	<label for="addActor" class="col-2 col-form-label">Título</label>
+				    	<label for="addCategoria" class="col-2 col-form-label">Categorias</label>
 				    	<div class="col-10">
-				    		<select class="form-select" aria-label="multiple select" name="AddCategoria" id="addCategoria">
+				    		<select class="form-select" aria-label="multiple select" name="addCategoria" id="addCategoria">
 				            	<c:forEach var="categoria" items="${listaCategorias}">
 				            		<option value="<c:out value="${ categoria.getId() }"/>">${ categoria.getId() } - ${ categoria.getNombre() }</option>
 					            </c:forEach>
@@ -223,25 +230,25 @@
 		        	<button type="submit" class="btn btn-dark">Agregar Categoría</button>
 		      	</div>
 		      </form>
-		      <form action="CrearActor.do" method="POST">
+		      <form action="CrearCategoria.do" method="POST">
 		      	<div class="modal-body">
 		      		<div class="form-group row">
-			        	<label for="ISBN2" class="col-2 col-form-label">ISBN</label>
+			        	<label for="ISBN4" class="col-2 col-form-label">ISBN</label>
 			                <div class="col-10">
-			                    <input type="number" class="form-control ps-2" id="ISBN2" name="isbn2"
+			                    <input type="number" class="form-control ps-2" id="ISBN4" name="isbn"
 			                        value="${ isbn }" min="1000000000000" max="9999999999999" readonly>
 			                </div>
 			            </div>
 			            <br>
 			        	<div class="form-group row">
-					    	<label for="nombreAutor" class="col-2 col-form-label">Nombre</label>
+					    	<label for="nombreCategoria" class="col-2 col-form-label">Nombre</label>
 					    	<div class="col-10">
-					    		<input type="text" id="disabledTextInput" class="form-control ps-2" name="nombreAutor">
+					    		<input type="text" id="disabledTextInput" class="form-control ps-2" name="nombreCategoria">
 					    	</div>
 					    </div>
 				      	<div class="modal-footer">
 				        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        	<button type="submit" class="btn btn-dark">Crear Actor</button>
+				        	<button type="submit" class="btn btn-dark">Crear Categoría</button>
 				      	</div>
 					</div>
 		      </form>
@@ -250,3 +257,61 @@
 		  </div>
 		</div>
 		
+		<!-- Modal para Crear Idiomas -->
+		<div class="modal fade" id="crearIdioma" tabindex="-1" aria-labelledby="crearIdiomaLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="crearCategoriaLabel">Agregar Idioma</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form action="AgregarIdioma.do" method="POST">
+		      	<div class="modal-body">
+		      		<div class="form-group row" style="display: none;">
+			        	<label for="ISBN5" class="col-2 col-form-label">ISBN</label>
+			        	<div class="col-10">
+			            	<input type="number" class="form-control ps-2" id="ISBN5" name="isbn"
+			            	value="${ isbn }" min="1000000000000" max="9999999999999" readonly>
+			        	</div>
+			        </div>
+		        	<div class="form-group row">
+				    	<label for="addIdioma" class="col-2 col-form-label">Idiomas</label>
+				    	<div class="col-10">
+				    		<select class="form-select" aria-label="multiple select" name="addIdioma" id="addIdioma">
+				            	<c:forEach var="idioma" items="${listaIdiomas}">
+				            		<option value="<c:out value="${ idioma.getId() }"/>">${ idioma.getId() } - ${ idioma.getNombre() }</option>
+					            </c:forEach>
+				            </select>
+				    	</div>
+				    </div>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="submit" class="btn btn-dark">Agregar Idioma</button>
+		      	</div>
+		      </form>
+		      <form action="CrearIdioma.do" method="POST">
+		      	<div class="modal-body">
+		      		<div class="form-group row">
+			        	<label for="ISBN6" class="col-2 col-form-label">ISBN</label>
+			                <div class="col-10">
+			                    <input type="number" class="form-control ps-2" id="ISBN6" name="isbn"
+			                        value="${ isbn }" min="1000000000000" max="9999999999999" readonly>
+			                </div>
+			            </div>
+			            <br>
+			        	<div class="form-group row">
+					    	<label for="nombreIdioma" class="col-2 col-form-label">Idioma</label>
+					    	<div class="col-10">
+					    		<input type="text" id="disabledTextInput" class="form-control ps-2" name="nombreIdioma">
+					    	</div>
+					    </div>
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				        	<button type="submit" class="btn btn-dark">Crear Idioma</button>
+				      	</div>
+					</div>
+		      </form>
+		      
+		    </div>
+		  </div>
+		</div>
