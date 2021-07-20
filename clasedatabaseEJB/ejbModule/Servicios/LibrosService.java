@@ -27,7 +27,7 @@ public class LibrosService implements LibrosServiceLocal {
         // TODO Auto-generated constructor stub
     }
     
-private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clasedatabaseEJB");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clasedatabaseEJB");
 
 	@Override
 	public void add(Libro l) {

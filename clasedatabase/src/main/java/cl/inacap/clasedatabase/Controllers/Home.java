@@ -13,13 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.Cliente;
 import Model.Ejemplar;
 import Model.Estado;
 import Model.Libro;
+import Model.Trabajador;
+import Servicios.ClientesServiceLocal;
 import Servicios.EjemplaresServiceLocal;
 import Servicios.EstadosServiceLocal;
 import Servicios.LibrosService;
 import Servicios.LibrosServiceLocal;
+import Servicios.TrabajadoresServiceLocal;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +51,10 @@ public class Home extends HttpServlet {
     private EjemplaresServiceLocal ejemplarService;
     @Inject
     private EstadosServiceLocal estadoService;
+    @Inject
+    private ClientesServiceLocal clienteService;
+    @Inject
+    private TrabajadoresServiceLocal trabajadorService;
     
     
     public static Date parseDate(String date) {
@@ -75,9 +83,24 @@ public class Home extends HttpServlet {
 		estados = estadoService.getAll();
 		request.setAttribute("estados", estados);
 		
+		int contadorClientes = 0;
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes = clienteService.getAll();
+		for(Cliente cliente : clientes) {
+			contadorClientes++;
+		}
+		request.setAttribute("clientes", contadorClientes);
+		
+		int contadorTrabajadores = 0;
+		List<Trabajador> trabajadores = new ArrayList<Trabajador>();
+		trabajadores = trabajadorService.getAll();
+		for(Trabajador trabajador : trabajadores) {
+			contadorTrabajadores++;
+		}
+		request.setAttribute("trabajadores", contadorTrabajadores);
+		
 		libroService.getAll().stream().forEach(l->out.println(l.getTitulo()));
 		request.getRequestDispatcher("site/home.jsp").forward(request, response);
-		
 	}
 
 	/**

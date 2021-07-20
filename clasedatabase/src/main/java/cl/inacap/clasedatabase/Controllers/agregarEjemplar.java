@@ -100,12 +100,7 @@ public class agregarEjemplar extends HttpServlet {
 			ejemplarService.add(ejemplar);
 		}
 		
-		PrintWriter out = response.getWriter();
-		out.println(est.getEstado());
-		out.println(l.getTitulo());
-		out.println(precio);
-		
-		//response.sendRedirect("Home.do");
+		response.sendRedirect("Home.do");
 	}
 
 }

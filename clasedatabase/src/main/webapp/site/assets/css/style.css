@@ -38,3 +38,27 @@ a.nav-link:hover {
 #titulo {
 	text-align: center;
 }
+
+.card {
+	-webkit-box-shadow: 4px 5px 11px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 4px 5px 11px 0px rgba(0,0,0,0.75);
+	box-shadow: 4px 5px 11px 0px rgba(0,0,0,0.75);
+	transition: .1s;
+}
+
+.card:hover {
+	-webkit-box-shadow: 8px 10px 22px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 8px 10px 22px 0px rgba(0,0,0,0.75);
+	box-shadow: 8px 10px 22px 0px rgba(0,0,0,0.75);
+}
+
+.XD {
+
+	text-decoration: none;
+	color: gray;
+	transition: .3s ease;
+}
+
+.XD:hover {
+	color: black;
+}

@@ -23,7 +23,6 @@ import javax.persistence.Table;
 })
 public class Ejemplar implements Serializable{
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int numero_serie;
 	private int precio;
 	@ManyToOne

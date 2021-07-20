@@ -9,5 +9,12 @@
 		<class>Model.Idioma</class>
 		<class>Model.Estado</class>
 		<class>Model.Ejemplar</class>
+		<class>Model.Distribuidor</class>
+		<class>Model.Telefono</class>
+		<class>Model.Direccion</class>
+		<class>Model.Cliente</class>
+		<class>Model.MetodoPago</class>
+		<class>Model.Correo</class>
+		<class>Model.Trabajador</class>
 	</persistence-unit>
 </persistence>

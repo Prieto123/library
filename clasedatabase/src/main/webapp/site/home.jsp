@@ -87,6 +87,7 @@
 				    	</div>
 				    </div>
 				    <br>
+				    
 				    <div class="form-group row">
 			        	<label for="precio" class="col-2 col-form-label">Precio</label>
 			        	<div class="col-10">
@@ -114,6 +115,32 @@
 		    </div>
 		  </div>
 		</div>
+		
+		<div class="row mt-2">
+		<br>
+			<div class="col-lg-6 col-sm-12">
+				<a class="btn-block XD" href="DetalleClientes.do">
+					<div class="card text-center bg-transparent">
+					    <div class="card-body">
+					      	<h5 class="card-title">Clientes</h5>
+					      	<p class="card-text" style="font-size: 3rem;">${ clientes } c</p>
+					    </div>
+					</div>
+				</a>
+			</div>
+			<div class="col-lg-6 col-sm-12">
+				<a class="btn-block XD" href="DetalleTrabajadores.do">
+					<div class="card text-center bg-transparent">
+					    <div class="card-body">
+					      	<h5 class="card-title">Trabajadores</h5>
+					      	<p class="card-text" style="font-size: 3rem;">${ trabajadores } t</p>
+					    </div>
+					</div>
+				</a>
+			</div>
+			<div class="col-4"></div>
+		</div>
+		
                   
 <jsp:include page="common/footer.jsp" />
                                    
