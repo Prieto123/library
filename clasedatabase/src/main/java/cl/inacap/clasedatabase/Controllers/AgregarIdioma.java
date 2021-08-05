@@ -23,6 +23,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class AgregarIdioma
+ * Agrega un nuevo idioma
  */
 @WebServlet("/AgregarIdioma.do")
 public class AgregarIdioma extends HttpServlet {

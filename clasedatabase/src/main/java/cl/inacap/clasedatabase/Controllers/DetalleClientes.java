@@ -16,6 +16,7 @@ import Servicios.ClientesServiceLocal;
 
 /**
  * Servlet implementation class DetalleClientes
+ * Se obtiene la vista detalleClientes.jsp con una lista de todos los clientes para iterarlos
  */
 @WebServlet("/DetalleClientes.do")
 public class DetalleClientes extends HttpServlet {

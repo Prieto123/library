@@ -38,4 +38,51 @@ public class Distribuidor implements Serializable{
 	@JoinColumn(name="direcciones_id")
 	private Direccion direccion;
 
+	public int getRut() {
+		return rut;
+	}
+
+	public void setRut(int rut) {
+		this.rut = rut;
+	}
+
+	public int getNumero_verificador() {
+		return numero_verificador;
+	}
+
+	public void setNumero_verificador(int numero_verificador) {
+		this.numero_verificador = numero_verificador;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getAno_antiguedad() {
+		return ano_antiguedad;
+	}
+
+	public void setAno_antiguedad(int ano_antiguedad) {
+		this.ano_antiguedad = ano_antiguedad;
+	}
+
+	public Telefono getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(Telefono telefono) {
+		this.telefono = telefono;
+	}
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
 }

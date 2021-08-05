@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-07-2021 a las 07:16:38
+-- Tiempo de generación: 05-08-2021 a las 02:24:09
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -29,14 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `arriendos` (
   `id` int(11) NOT NULL,
-  `valor` int(11) DEFAULT NULL,
   `fecha_arriendo` date DEFAULT NULL,
   `fecha_devolucion_deseada` date DEFAULT NULL,
   `fecha_devolucion_real` date DEFAULT NULL,
   `clientes_rut` int(11) NOT NULL,
-  `trabajadores_rut` int(11) NOT NULL,
-  `boletas_folio` int(11) NOT NULL
+  `trabajadores_rut` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `arriendos`
+--
+
+INSERT INTO `arriendos` (`id`, `fecha_arriendo`, `fecha_devolucion_deseada`, `fecha_devolucion_real`, `clientes_rut`, `trabajadores_rut`) VALUES
+(5, '2021-07-29', '2021-07-30', '2021-07-30', 7419310, 40293456),
+(6, '2021-07-29', '2021-07-25', '2021-07-25', 18345934, 9856934);
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,9 @@ INSERT INTO `autores` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`) V
 (4, 'Mario', 'Carvajal', NULL),
 (5, 'Carlos', 'Saraniti', NULL),
 (6, 'John', 'Katzenbach', NULL),
-(7, 'Stephen', 'Chbosky', NULL);
+(7, 'Stephen', 'Chbosky', NULL),
+(8, 'ElRubius', 'OMG', NULL),
+(9, 'Sergio', 'Vergara', NULL);
 
 -- --------------------------------------------------------
 
@@ -78,6 +86,15 @@ CREATE TABLE `boletas` (
   `trabajadores_rut` int(11) NOT NULL,
   `metodos_pago_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `boletas`
+--
+
+INSERT INTO `boletas` (`folio`, `fecha_venta`, `hora_venta`, `cliente_rut`, `trabajadores_rut`, `metodos_pago_id`) VALUES
+(2, '2021-07-29', '2021-07-07', 7419310, 40293456, 5),
+(5, '2021-07-29', '2021-07-29', 20703735, 40293456, 3),
+(6, '2021-07-29', '2021-07-29', 18345934, 9856934, 4);
 
 -- --------------------------------------------------------
 
@@ -101,7 +118,8 @@ INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (4, 'Epistolario'),
 (5, 'Novela'),
 (6, 'Suspenso'),
-(7, 'Thriller Psicológico');
+(7, 'Thriller Psicológico'),
+(8, 'Puzle');
 
 -- --------------------------------------------------------
 
@@ -123,7 +141,11 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`rut`, `numero_verificador`, `nombre`, `apellido_paterno`, `apellido_materno`) VALUES
 (7419310, '2', 'Isabel', 'Cepeda', 'Pinto'),
-(20703735, '7', 'Sebastián', 'Mena', 'Cordova');
+(18345934, '4', 'Lucas', 'Goñi', 'Flániga'),
+(19238945, '3', 'Paz', 'Pena', 'Asenjo'),
+(20283413, '2', 'Catalina', 'Cepeda', 'Órdenes'),
+(20703735, '7', 'Sebastián', 'Mena', 'Cordova'),
+(24999888, '2', 'Sebastián', 'Uribe', 'Pulgar');
 
 -- --------------------------------------------------------
 
@@ -147,6 +169,14 @@ CREATE TABLE `clientes_has_direcciones` (
   `direcciones_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `clientes_has_direcciones`
+--
+
+INSERT INTO `clientes_has_direcciones` (`clientes_rut`, `direcciones_id`) VALUES
+(20283413, 11),
+(24999888, 13);
+
 -- --------------------------------------------------------
 
 --
@@ -158,6 +188,14 @@ CREATE TABLE `clientes_has_telefonos` (
   `telefonos_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `clientes_has_telefonos`
+--
+
+INSERT INTO `clientes_has_telefonos` (`clientes_rut`, `telefonos_id`) VALUES
+(20283413, 10),
+(24999888, 13);
+
 -- --------------------------------------------------------
 
 --
@@ -166,10 +204,17 @@ CREATE TABLE `clientes_has_telefonos` (
 
 CREATE TABLE `compras` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(60) COLLATE utf8_spanish_ci DEFAULT NULL,
   `facturas_folio` int(11) NOT NULL,
   `ejemplar_libro_numero_serie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id`, `facturas_folio`, `ejemplar_libro_numero_serie`) VALUES
+(2, 1, 35475),
+(3, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -201,6 +246,14 @@ CREATE TABLE `detalle_arriendo` (
   `arriendos_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_arriendo`
+--
+
+INSERT INTO `detalle_arriendo` (`ejemplar_libro_numero_serie`, `arriendos_id`) VALUES
+(7, 5),
+(2353, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -218,7 +271,15 @@ CREATE TABLE `direcciones` (
 
 INSERT INTO `direcciones` (`id`, `direccion`) VALUES
 (1, 'Newton 0933, Quilpué'),
-(2, 'El Rincón de los Zorzales, Villa Alemana');
+(2, 'El Rincón de los Zorzales, Villa Alemana'),
+(6, 'Las Condes'),
+(7, 'Las Kongdes'),
+(8, 'Cachagua 493'),
+(9, 'Cachagua 492'),
+(10, 'Villa Paraíso 419, Quillota'),
+(11, 'Los Presidentes 8912, Casa 116, Peñalolén'),
+(12, 'Avenida Argentina Valparaíso'),
+(13, 'Hola');
 
 -- --------------------------------------------------------
 
@@ -227,13 +288,21 @@ INSERT INTO `direcciones` (`id`, `direccion`) VALUES
 --
 
 CREATE TABLE `distribuidores` (
-  `rut` int(8) NOT NULL,
+  `rut` int(9) NOT NULL,
   `numero_verificador` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
   `nombre` varchar(60) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `ano_antiguedad` date DEFAULT NULL,
-  `telefonos_id` int(1) NOT NULL,
-  `direcciones_id` int(1) NOT NULL
+  `ano_antiguedad` int(4) DEFAULT NULL,
+  `telefonos_id` int(11) NOT NULL,
+  `direcciones_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `distribuidores`
+--
+
+INSERT INTO `distribuidores` (`rut`, `numero_verificador`, `nombre`, `ano_antiguedad`, `telefonos_id`, `direcciones_id`) VALUES
+(96834344, '7', 'Distribuidora Cristal XD', 2018, 12, 12),
+(99456945, '2', 'Distribuidora Los Patos', 2021, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -253,7 +322,14 @@ CREATE TABLE `editoriales` (
 INSERT INTO `editoriales` (`id`, `editorial`) VALUES
 (1, 'Zig Zag'),
 (2, 'Planeta'),
-(8, 'lorem');
+(8, 'Lorem'),
+(9, 'Arcano IV'),
+(10, 'Overol'),
+(11, 'Cuatro Vientos'),
+(12, 'Cuneta'),
+(13, 'Ocho Libros'),
+(14, 'Kactus'),
+(15, 'Catalonia');
 
 -- --------------------------------------------------------
 
@@ -265,8 +341,17 @@ CREATE TABLE `ejemplar_libro` (
   `numero_serie` int(11) NOT NULL,
   `precio` varchar(8) COLLATE utf8_spanish_ci DEFAULT NULL,
   `estados_id` int(11) NOT NULL,
-  `libros_isbn` int(13) NOT NULL
+  `libros_isbn` bigint(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ejemplar_libro`
+--
+
+INSERT INTO `ejemplar_libro` (`numero_serie`, `precio`, `estados_id`, `libros_isbn`) VALUES
+(7, '100', 3, 9780446677455),
+(2353, '5000', 2, 8924862835892),
+(35475, '2000', 3, 1245135475752);
 
 -- --------------------------------------------------------
 
@@ -297,10 +382,18 @@ INSERT INTO `estados` (`id`, `estado`) VALUES
 CREATE TABLE `facturas` (
   `folio` int(11) NOT NULL,
   `fecha_compra` date DEFAULT NULL,
-  `hora_compra` date DEFAULT NULL,
+  `hora_compra` time DEFAULT NULL,
   `metodos_pago_id` int(11) NOT NULL,
   `distribuidores_rut` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`folio`, `fecha_compra`, `hora_compra`, `metodos_pago_id`, `distribuidores_rut`) VALUES
+(1, '2021-08-03', NULL, 2, 99456945),
+(2, '2021-08-04', NULL, 4, 99456945);
 
 -- --------------------------------------------------------
 
@@ -340,30 +433,9 @@ CREATE TABLE `libros` (
 --
 
 INSERT INTO `libros` (`isbn`, `titulo`, `paginas`, `ano_publicado`, `editoriales_id`) VALUES
-(9780340951453, 'It', 1137, 1986, 2),
-(9780446677455, 'Padre Rico, Padre Pobre', 207, 1997, 1),
-(9780582402751, 'Misery', 420, 1987, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `libros_copy1`
---
-
-CREATE TABLE `libros_copy1` (
-  `isbn` bigint(13) NOT NULL,
-  `titulo` varchar(48) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `paginas` int(8) DEFAULT NULL,
-  `ano_publicado` int(4) DEFAULT NULL,
-  `editoriales_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `libros_copy1`
---
-
-INSERT INTO `libros_copy1` (`isbn`, `titulo`, `paginas`, `ano_publicado`, `editoriales_id`) VALUES
-(9780340951453, 'It', 1137, 1986, 2),
+(1245135475752, 'El Jorobado de Notredame', 120, 2001, 8),
+(2624632343434, 'El libro Troll', 100, 2018, 15),
+(8924862835892, 'El Principito', 1, 2021, 13),
 (9780446677455, 'Padre Rico, Padre Pobre', 207, 1997, 1),
 (9780582402751, 'Misery', 420, 1987, 1);
 
@@ -383,8 +455,9 @@ CREATE TABLE `libros_has_autores` (
 --
 
 INSERT INTO `libros_has_autores` (`libros_isbn`, `autores_id`) VALUES
-(9780340951453, 1),
-(9780582402751, 1);
+(9780582402751, 1),
+(1245135475752, 1),
+(2624632343434, 8);
 
 -- --------------------------------------------------------
 
@@ -405,7 +478,8 @@ INSERT INTO `libros_has_categorias` (`libros_isbn`, `categorias_id`) VALUES
 (9780582402751, 6),
 (9780582402751, 7),
 (9780582402751, 1),
-(9780340951453, 1);
+(1245135475752, 1),
+(2624632343434, 8);
 
 -- --------------------------------------------------------
 
@@ -423,10 +497,10 @@ CREATE TABLE `libros_has_idiomas` (
 --
 
 INSERT INTO `libros_has_idiomas` (`libros_isbn`, `idiomas_id`) VALUES
-(9780340951453, 1),
-(9780340951453, 2),
 (9780582402751, 1),
-(9780582402751, 2);
+(9780582402751, 2),
+(1245135475752, 1),
+(2624632343434, 1);
 
 -- --------------------------------------------------------
 
@@ -458,7 +532,7 @@ INSERT INTO `metodos_pago` (`id`, `metodo`) VALUES
 
 CREATE TABLE `telefonos` (
   `id` int(11) NOT NULL,
-  `numero` int(11) DEFAULT NULL
+  `numero` varchar(9) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -466,7 +540,16 @@ CREATE TABLE `telefonos` (
 --
 
 INSERT INTO `telefonos` (`id`, `numero`) VALUES
-(1, 978569972);
+(1, '978569972'),
+(2, '900000000'),
+(6, '988877787'),
+(7, '988877786'),
+(8, '978123456'),
+(9, '978123455'),
+(10, '974784610'),
+(11, '975968785'),
+(12, '975968783'),
+(13, '956565656');
 
 -- --------------------------------------------------------
 
@@ -488,7 +571,10 @@ CREATE TABLE `trabajadores` (
 --
 
 INSERT INTO `trabajadores` (`rut`, `numero_verificador`, `nombre`, `apellido_paterno`, `apellido_materno`, `fecha_contrato`) VALUES
-(20482869, '5', 'Pablo', 'Prieto', 'Cepeda', '2021-07-07');
+(9384596, '2', 'Juan', 'Pérez', 'Pérez', '2021-08-01'),
+(9856934, '2', 'Zacarías', 'Flores', 'Del Campo', '2021-07-30'),
+(20482863, '3', 'Pablo', 'Prieto', 'Cepeda', '2021-07-29'),
+(40293456, '2', 'Alan', 'Brito', 'Delgado', '2021-07-29');
 
 -- --------------------------------------------------------
 
@@ -545,8 +631,7 @@ CREATE TABLE `ventas` (
 ALTER TABLE `arriendos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `clientes_rut_arriendos` (`clientes_rut`),
-  ADD KEY `trabajadores_id_arriendos` (`trabajadores_rut`),
-  ADD KEY `boletas_folio_arriendos` (`boletas_folio`);
+  ADD KEY `trabajadores_id_arriendos` (`trabajadores_rut`);
 
 --
 -- Indices de la tabla `autores`
@@ -669,14 +754,8 @@ ALTER TABLE `idiomas`
 -- Indices de la tabla `libros`
 --
 ALTER TABLE `libros`
-  ADD PRIMARY KEY (`isbn`);
-
---
--- Indices de la tabla `libros_copy1`
---
-ALTER TABLE `libros_copy1`
   ADD PRIMARY KEY (`isbn`),
-  ADD KEY `editoriales_id_libros` (`editoriales_id`);
+  ADD KEY `libros_isbn_editoriales_id` (`editoriales_id`);
 
 --
 -- Indices de la tabla `libros_has_autores`
@@ -754,31 +833,31 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `arriendos`
 --
 ALTER TABLE `arriendos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `boletas`
 --
 ALTER TABLE `boletas`
-  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `correos`
@@ -790,13 +869,13 @@ ALTER TABLE `correos`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `editoriales`
 --
 ALTER TABLE `editoriales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -808,7 +887,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `idiomas`
@@ -826,7 +905,7 @@ ALTER TABLE `metodos_pago`
 -- AUTO_INCREMENT de la tabla `telefonos`
 --
 ALTER TABLE `telefonos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
@@ -842,7 +921,6 @@ ALTER TABLE `ventas`
 -- Filtros para la tabla `arriendos`
 --
 ALTER TABLE `arriendos`
-  ADD CONSTRAINT `boletas_folio_arriendos` FOREIGN KEY (`boletas_folio`) REFERENCES `boletas` (`folio`),
   ADD CONSTRAINT `clientes_rut_arriendos` FOREIGN KEY (`clientes_rut`) REFERENCES `clientes` (`rut`),
   ADD CONSTRAINT `trabajadores_id_arriendos` FOREIGN KEY (`trabajadores_rut`) REFERENCES `trabajadores` (`rut`);
 
@@ -900,7 +978,8 @@ ALTER TABLE `distribuidores`
 -- Filtros para la tabla `ejemplar_libro`
 --
 ALTER TABLE `ejemplar_libro`
-  ADD CONSTRAINT `estados_id_ejemplares` FOREIGN KEY (`estados_id`) REFERENCES `estados` (`id`);
+  ADD CONSTRAINT `estados_id_ejemplares` FOREIGN KEY (`estados_id`) REFERENCES `estados` (`id`),
+  ADD CONSTRAINT `libros_isbn_ejemplares` FOREIGN KEY (`libros_isbn`) REFERENCES `libros` (`isbn`);
 
 --
 -- Filtros para la tabla `facturas`
@@ -910,10 +989,10 @@ ALTER TABLE `facturas`
   ADD CONSTRAINT `metodos_pago_id_facturas` FOREIGN KEY (`metodos_pago_id`) REFERENCES `metodos_pago` (`id`);
 
 --
--- Filtros para la tabla `libros_copy1`
+-- Filtros para la tabla `libros`
 --
-ALTER TABLE `libros_copy1`
-  ADD CONSTRAINT `libros_copy1_ibfk_1` FOREIGN KEY (`editoriales_id`) REFERENCES `editoriales` (`id`);
+ALTER TABLE `libros`
+  ADD CONSTRAINT `libros_isbn_editoriales_id` FOREIGN KEY (`editoriales_id`) REFERENCES `editoriales` (`id`);
 
 --
 -- Filtros para la tabla `libros_has_autores`

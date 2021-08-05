@@ -26,6 +26,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class agregarEjemplar
+ * Se agrega un nuevo ejemplar libro de un libro, se valida que el libro exista
  */
 @WebServlet("/agregarEjemplar.do")
 public class agregarEjemplar extends HttpServlet {
@@ -60,9 +61,9 @@ public class agregarEjemplar extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		int num_serie = Integer.parseInt(request.getParameter("num_serie"));
-		int precio = Integer.parseInt(request.getParameter("precio"));
-		long elLibro = Long.parseLong(request.getParameter("addLibro"));
+		int num_serie = 9459454;
+		int precio = 1000;
+		long elLibro = Long.parseLong("1000000000000");
 		List<Libro> libros = new ArrayList<Libro>();
 		libros = libroService.getAll();
 		List<Estado> estados = new ArrayList<Estado>();
@@ -75,6 +76,18 @@ public class agregarEjemplar extends HttpServlet {
 		Estado est = new Estado();
 		
 		boolean doIt = true;
+		try {
+			num_serie = Integer.parseInt(request.getParameter("num_serie"));
+			precio = Integer.parseInt(request.getParameter("precio"));
+			elLibro = Long.parseLong(request.getParameter("addLibro"));
+		} catch (Exception e) {
+			doIt = false;
+		}
+		
+		
+		/**
+		 * Recorre todos los libros para setearlo al ejemplar
+		 */
 		for(Libro libro : libros) {
 			if(libro.getIsbn() == elLibro) {
 				l = libro;

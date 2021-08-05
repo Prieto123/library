@@ -22,6 +22,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class AgregarCategoria
+ * Se agrega una nueva categoria a un Libro
  */
 @WebServlet("/AgregarCategoria.do")
 public class AgregarCategoria extends HttpServlet {

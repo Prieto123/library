@@ -59,7 +59,7 @@ private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clase
 		// TODO Auto-generated method stub
 		EntityManager em = this.emf.createEntityManager();
 		try {
-			em.remove(em.find(Trabajador.class, t.getNumero_verificador()));
+			em.remove(em.find(Trabajador.class, t.getRut()));
 		} catch (Exception e) {
 			
 		} finally {

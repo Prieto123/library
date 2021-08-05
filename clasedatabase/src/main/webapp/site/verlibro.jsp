@@ -36,7 +36,7 @@
 		                <label for="ISBN" class="col-2 col-form-label">ISBN</label>
 		                <div class="col-10">
 		                    <input type="number" class="form-control-plaintext ps-2" id="ISBN" name="isbn"
-		                        value="${ isbn }" min="1000000000000" max="9999999999999">
+		                        value="${ isbn }" min="1000000000000" max="9999999999999" readonly>
 		                </div>
 		            </div>
 		            <div class="form-group row">

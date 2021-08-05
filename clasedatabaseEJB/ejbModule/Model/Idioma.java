@@ -30,16 +30,31 @@ public class Idioma implements Serializable{
 	private String nombre;
 	@ManyToMany(mappedBy = "idiomas")
     private List<Libro> libros;
-	
+	/**
+	 * Se obtiene la id del idioma
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la ID del idioma
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene el nombre del idioma
+	 * @return
+	 */
 	public String getNombre() {
 		return nombre;
 	}
+	/**
+	 * Se establece el nombre del idioma
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

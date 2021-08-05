@@ -22,6 +22,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class AgregarActor
+ * Agrega un actor nuevo a la base de datos mediante AutoresServiceLocal
  */
 @WebServlet("/AgregarActor.do")
 public class AgregarActor extends HttpServlet {

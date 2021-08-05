@@ -31,7 +31,7 @@
                                 <a class="nav-link" aria-current="page" href="Home.do">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="LibrosControllers.do">Libros</a>
+                                <a class="nav-link" aria-current="page" href="Salir">${ username }</a>
                             </li>
                         </ul>
                     </div>

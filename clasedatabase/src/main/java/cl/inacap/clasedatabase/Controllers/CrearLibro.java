@@ -22,6 +22,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class CrearLibro
+ * Crea un libro nuevo, valida que no exista
  */
 @WebServlet("/CrearLibro.do")
 public class CrearLibro extends HttpServlet {
@@ -58,31 +59,58 @@ public class CrearLibro extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Libro l = new Libro();
 		Editorial e=new Editorial();
-		
-		List<Editorial> editoriales = new ArrayList<Editorial>();
-		editoriales = editorialService.getAll();
-		for(Editorial editorial : editoriales) {
-			if(editorial.getId() == Integer.parseInt(request.getParameter("editorial"))) {
-				e.setId(editorial.getId());
-				e.setEditorial(editorial.getEditorial());
-			}
+		boolean ejecutar = false;
+		Long isbn = Long.parseLong("8345857234334");
+		String titulo = "titulo";
+		String pages = request.getParameter("paginas");
+		int paginas = 0;
+		String ano = request.getParameter("ano");
+		int ano2 = Integer.parseInt(ano);
+		try {
+			  isbn = Long.parseLong(request.getParameter("isbn"));
+			  titulo = request.getParameter("titulo");
+			  if(titulo.equals("") || pages.equals("") || ano.equals("")) {
+				  ejecutar = false;
+			  }
+			  paginas = Integer.parseInt(pages);
+			  ano2 = Integer.parseInt(ano);
+			  List<Editorial> editoriales = new ArrayList<Editorial>();
+				editoriales = editorialService.getAll();
+				for(Editorial editorial : editoriales) {
+					if(editorial.getId() == Integer.parseInt(request.getParameter("editorial"))) {
+						e.setId(editorial.getId());
+						e.setEditorial(editorial.getEditorial());
+					}
+				}
+				List<Autor> autores = new ArrayList<Autor>();
+				List<Categoria> categorias = new ArrayList<Categoria>();
+				List<Idioma> idiomas = new ArrayList<Idioma>();
+				
+				l.setIsbn(			isbn);
+				l.setTitulo(		titulo);
+				l.setPaginas(		paginas);
+				l.setAno_publicado(	ano2);
+				l.setEd(e);
+				l.setAutorList(		autores);
+				l.setCategoria(		categorias);
+				l.setIdiomas(		idiomas);
+				ejecutar = true;
+				
+				
+		} catch (Exception e2) {
+			ejecutar = false;
 		}
-		List<Autor> autores = new ArrayList<Autor>();
-		List<Categoria> categorias = new ArrayList<Categoria>();
-		List<Idioma> idiomas = new ArrayList<Idioma>();
+		if(ejecutar) {
+			libroService.add(l); 
+			String ruta = "DetalleLibro.do?isbn=" + isbn.toString();
+			response.sendRedirect(ruta);
+		} else {
+			response.sendRedirect("ListarLibros.do");
+		}
 		
-		l.setIsbn(			Long.parseLong(request.getParameter("isbn")));
-		l.setTitulo(		request.getParameter("titulo"));
-		l.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
-		l.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
-		l.setEd(e);
-		l.setAutorList(		autores);
-		l.setCategoria(		categorias);
-		l.setIdiomas(		idiomas);
+			
 		
-		libroService.add(l); 
 		
-		response.sendRedirect("Home.do");
 		
 		
 	}

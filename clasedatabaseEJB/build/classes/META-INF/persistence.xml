@@ -16,5 +16,9 @@
 		<class>Model.MetodoPago</class>
 		<class>Model.Correo</class>
 		<class>Model.Trabajador</class>
+		<class>Model.Boleta</class>
+		<class>Model.Arriendo</class>
+		<class>Model.Factura</class>
+		<class>Model.Compra</class>
 	</persistence-unit>
 </persistence>

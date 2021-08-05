@@ -22,9 +22,16 @@ import Servicios.CategoriasServiceLocal;
 import Servicios.EditorialesServiceLocal;
 import Servicios.IdiomasServiceLocal;
 import Servicios.LibrosServiceLocal;
+/**
+ * @author pablo prieto, lucas goni
+ */
+
+
 
 /**
  * Servlet implementation class DetalleLibro
+ * Se obtiene una lista de verlibro.jsp para ver los detalles de un libro, se pasan los atributos
+ * isbn, titulo, paginas, autores, categorias, año, editorial, idiomas
  */
 @WebServlet("/DetalleLibro.do")
 public class DetalleLibro extends HttpServlet {
@@ -115,26 +122,54 @@ public class DetalleLibro extends HttpServlet {
 		List<Libro> libros = new ArrayList<Libro>();
 		libros = libroService.getAll();
 		List<Autor> autores = new ArrayList<Autor>();
-		e.setId(Integer.parseInt(request.getParameter("editorial")));
+		List<Categoria> categorias = new ArrayList<Categoria>();
+		List<Idioma> idiomas = new ArrayList<Idioma>();
 		
-		l.setIsbn(			Long.parseLong(request.getParameter("isbn")));
-		
-		for(int i = 0; i < libros.size(); i++) {
-			if(libros.get(i).getIsbn() == l.getIsbn()) {
-				
-				autores = libros.get(i).getAutorList();
-				l.setAutorList(autores);
-				
+		List<Editorial> editoriales = new ArrayList<Editorial>();
+		editoriales = editorialService.getAll();
+		for(Editorial editorial : editoriales) {
+			if(editorial.getId() == Integer.parseInt(request.getParameter("editorial"))) {
+				e = editorial;
 			}
 		}
 		
-		l.setTitulo(		request.getParameter("titulo"));
-		l.setPaginas(		Integer.parseInt(request.getParameter("paginas")));
-		l.setAno_publicado(	Integer.parseInt(request.getParameter("ano")));
-		l.setEd(e);
+		String titulo = request.getParameter("titulo");
+		int paginasLibro = 0;
+		int anoLibro =  2000;
+		boolean seguir = true;
+		try {
+			paginasLibro = Integer.parseInt(request.getParameter("paginas"));
+			anoLibro = Integer.parseInt(request.getParameter("ano"));
+		} catch (Exception e2) {
+			seguir = false;
+		}
+		if(seguir) {
+			if(!titulo.equals("")) {
+				l.setIsbn(			Long.parseLong(request.getParameter("isbn")));
+				
+				for(int i = 0; i < libros.size(); i++) {
+					if(libros.get(i).getIsbn() == l.getIsbn()) {
+						autores = libros.get(i).getAutorList();
+						l.setAutorList(autores);
+						categorias = libros.get(i).getCategorias();
+						l.setCategoria(categorias);
+						idiomas = libros.get(i).getIdiomas();
+						l.setIdiomas(idiomas);
+					}
+				}
+				
+				l.setTitulo(		titulo);
+				l.setPaginas(		paginasLibro);
+				l.setAno_publicado(	anoLibro);
+				l.setEd(e);
+				
+				
+				libroService.update(l);
+			}
+		}
 		
 		
-		libroService.update(l);
+		
 		
 		String ruta = "DetalleLibro.do?isbn=" + request.getParameter("isbn"); 
 		

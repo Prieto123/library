@@ -23,6 +23,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class CrearIdioma
+ * Se crea un nuevo idioma, se valida que no exista primero y luego lo añade a un libro
  */
 @WebServlet("/CrearIdioma.do")
 public class CrearIdioma extends HttpServlet {
@@ -56,14 +57,19 @@ public class CrearIdioma extends HttpServlet {
 		// TODO Auto-generated method stub
 PrintWriter out = response.getWriter();
 		
+		boolean ejecutar = true;
+		String nombreIdioma = request.getParameter("nombreIdioma");
+		if(nombreIdioma.equals("")) {
+			ejecutar = false;
+		}
+
 		Idioma id = new Idioma();
-		id.setNombre(request.getParameter("nombreIdioma"));
+		id.setNombre(nombreIdioma);
 		
 		long isbn = Long.parseLong(request.getParameter("isbn"));
 		
 		List<Idioma> validIdioma = new ArrayList<Idioma>();
 		validIdioma = idiomaService.getAll();
-		boolean ejecutar = true;
 		for (int i = 0; i < validIdioma.size(); i++) {
 			if (validIdioma.get(i).getNombre().equals(id.getNombre())) {
 				ejecutar = false;

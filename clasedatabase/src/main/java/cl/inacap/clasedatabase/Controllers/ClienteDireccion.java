@@ -19,6 +19,7 @@ import Servicios.DireccionesServiceLocal;
 
 /**
  * Servlet implementation class ClienteDireccion
+ * Añade o crea una nueva direccion al cliente
  */
 @WebServlet("/ClienteDireccion.do")
 public class ClienteDireccion extends HttpServlet {
@@ -69,34 +70,36 @@ public class ClienteDireccion extends HttpServlet {
 				break;
 			}
 		}
-		
-		if(!existeDireccion) {
-			addDireccion.setDireccion(direccion);
-			direccionService.add(addDireccion);
-		}
-		
-		
-		Cliente clienteFinal = new Cliente();
-		
-		for(Cliente cliente : clientes) {
-			boolean existeEnUsuario = false;
-			if (cliente.getRut() == rut) {
-				clienteFinal = cliente;
-				direccionesCliente = cliente.getDirecciones();
-				for(int i = 0; i < direccionesCliente.size(); i++) {
-					if(direccionesCliente.get(i).getDireccion().equals(addDireccion.getDireccion())) {
-						existeEnUsuario = true;
-						break;
+		if(!direccion.equals("")) {
+			if(!existeDireccion) {
+				addDireccion.setDireccion(direccion);
+				direccionService.add(addDireccion);
+			}
+			
+			
+			Cliente clienteFinal = new Cliente();
+			
+			for(Cliente cliente : clientes) {
+				boolean existeEnUsuario = false;
+				if (cliente.getRut() == rut) {
+					clienteFinal = cliente;
+					direccionesCliente = cliente.getDirecciones();
+					for(int i = 0; i < direccionesCliente.size(); i++) {
+						if(direccionesCliente.get(i).getDireccion().equals(addDireccion.getDireccion())) {
+							existeEnUsuario = true;
+							break;
+						}
 					}
-				}
-				if(!existeEnUsuario) {
-					
-					direccionesCliente.add(addDireccion);
-					clienteFinal.setDirecciones(direccionesCliente);
-					clienteService.update(clienteFinal);
+					if(!existeEnUsuario) {
+						
+						direccionesCliente.add(addDireccion);
+						clienteFinal.setDirecciones(direccionesCliente);
+						clienteService.update(clienteFinal);
+					}
 				}
 			}
 		}
+		
 		
 		
 		

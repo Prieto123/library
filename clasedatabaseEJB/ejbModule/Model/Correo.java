@@ -19,21 +19,41 @@ import javax.persistence.Table;
 	
 	
 })
+/**
+ * 
+ * @author pablo
+ *
+ */
 public class Correo implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String direccion;
-	
+	/**
+	 * Se obtiene la ID del correo, es autoincrementable
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la Id del correo, generalmente no se usa ya que es autoincrementable
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene la direccion de correo electronico
+	 * @return
+	 */
 	public String getDireccion() {
 		return direccion;
 	}
+	/**
+	 * Se establece una direccion de correo electronico
+	 * @param direccion
+	 */
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}

@@ -23,6 +23,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class CrearCategoria
+ * Crea una nueva categoría, se valida que no exista primero
  */
 @WebServlet("/CrearCategoria.do")
 public class CrearCategoria extends HttpServlet {
@@ -55,15 +56,20 @@ public class CrearCategoria extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
+		boolean ejecutar = true;
+		String nombreCategoria = request.getParameter("nombreCategoria");
+		if(nombreCategoria.equals("")) {
+			ejecutar = false;
+		}
 		
 		Categoria ca = new Categoria();
-		ca.setNombre(request.getParameter("nombreCategoria"));
+		ca.setNombre(nombreCategoria);
 		
 		long isbn = Long.parseLong(request.getParameter("isbn"));
 		
 		List<Categoria> validCategoria = new ArrayList<Categoria>();
 		validCategoria = categoriaService.getAll();
-		boolean ejecutar = true;
+		
 		for (int i = 0; i < validCategoria.size(); i++) {
 			if (validCategoria.get(i).getNombre().equals(ca.getNombre())) {
 				ejecutar = false;

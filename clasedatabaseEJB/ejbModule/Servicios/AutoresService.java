@@ -24,7 +24,7 @@ public class AutoresService implements AutoresServiceLocal {
     public AutoresService() {
         // TODO Auto-generated constructor stub
     }
-private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clasedatabaseEJB");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("clasedatabaseEJB");
     
     @Override
 	public void add(Autor a) {

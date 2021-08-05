@@ -25,15 +25,31 @@ public class MetodoPago implements Serializable {
 	private int id;
 	private String metodo;
 	
+	/**
+	 * Se obtiene la id del metodo de pago
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la id del metodo de pago
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene el nombre del metodo de pago
+	 * @return
+	 */
 	public String getMetodo() {
 		return metodo;
 	}
+	/**
+	 * Se establece el nombre del metodo de pago
+	 * @param metodo
+	 */
 	public void setMetodo(String metodo) {
 		this.metodo = metodo;
 	}

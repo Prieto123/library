@@ -20,20 +20,41 @@ import javax.persistence.Table;
 	
 	
 })
+/**
+ * 
+ * @author pablo
+ *
+ */
 public class Telefono implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String numero;
+	/**
+	 * Se obtiene la ID del telefono
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la ID del telefono
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene el numero de telefono
+	 * @return
+	 */
 	public String getNumero() {
 		return numero;
 	}
+	/**
+	 * Se establece el numero de telefono
+	 * @param numero
+	 */
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}

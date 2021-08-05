@@ -19,6 +19,7 @@ import Servicios.DireccionesServiceLocal;
 
 /**
  * Servlet implementation class BorrarDireccion
+ * Borra una direccion del cliente
  */
 @WebServlet("/BorrarDireccion.do")
 public class BorrarDireccion extends HttpServlet {

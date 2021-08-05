@@ -28,16 +28,31 @@ public class Editorial implements Serializable{
 	@Column(name="editorial")
 	private String editorial;
 	
-	
+	/**
+	 * Se obtiene la ID de la editorial
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la ID de la editorial
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene el nombre de la editorial
+	 * @return
+	 */
 	public String getEditorial() {
 		return editorial;
 	}
+	/**
+	 * Se establece el nombre de la editorial
+	 * @param editorial
+	 */
 	public void setEditorial(String editorial) {
 		this.editorial = editorial;
 	}

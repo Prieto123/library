@@ -23,6 +23,7 @@ import Servicios.LibrosServiceLocal;
 
 /**
  * Servlet implementation class CrearActor
+ * Crea un unevo Autor, se valida que no exista primero
  */
 @WebServlet("/CrearActor.do")
 public class CrearActor extends HttpServlet {
@@ -54,16 +55,22 @@ public class CrearActor extends HttpServlet {
 		// TODO Auto-generated method stub		
 		
 		PrintWriter out = response.getWriter();
+		String nombreAutor = request.getParameter("nombreAutor");
+		String apellidoAutor = request.getParameter("apellidoAutor");
+		boolean ejecutar = true;
+		if(nombreAutor.equals("") || apellidoAutor.equals("")) {
+			ejecutar = false;
+		}
 		
 		Autor a=new Autor();
-		a.setNombre(request.getParameter("nombreAutor"));
-		a.setApellido_paterno(request.getParameter("apellidoAutor"));
+		a.setNombre(nombreAutor);
+		a.setApellido_paterno(apellidoAutor);
 		
 		long isbn = Long.parseLong(request.getParameter("isbn2"));
 		
 		List<Autor> validAutores = new ArrayList<Autor>();
 		validAutores = autorService.getAll();
-		boolean ejecutar = true;
+		
 		for (int i = 0; i < validAutores.size(); i++) {
 			if (validAutores.get(i).getNombre().equals(a.getNombre()) && validAutores.get(i).getApellido_paterno().equals(a.getApellido_paterno())) {
 				ejecutar = false;

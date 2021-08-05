@@ -29,23 +29,32 @@ public class Categoria implements Serializable {
 	private String nombre;
 	@ManyToMany(mappedBy = "categorias")
     private List<Libro> libros;
-	
+	/**
+	 * Se obtiene la ID de la Categoria
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * Se establece la ID de la categoria, es Autoincremental asi que generalmente no se usa
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * Se obtiene el nombre de la categoria
+	 * @return
+	 */
 	public String getNombre() {
 		return nombre;
 	}
+	/**
+	 * Se establece el nombre de la categoria
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/*public List<Libro> getLibros() {
-		return libros;
-	}
-	public void setLibros(List<Libro> libros) {
-		this.libros = libros;
-	}*/
 }

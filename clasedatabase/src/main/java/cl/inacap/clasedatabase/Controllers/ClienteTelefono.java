@@ -18,6 +18,7 @@ import Servicios.TelefonosServiceLocal;
 
 /**
  * Servlet implementation class ClienteTelefono
+ * Añade o crea un nuevo telefono al cliente
  */
 @WebServlet("/ClienteTelefono.do")
 public class ClienteTelefono extends HttpServlet {
@@ -57,35 +58,47 @@ public class ClienteTelefono extends HttpServlet {
 		
 		int rut = Integer.parseInt(request.getParameter("rut"));
 		String telefono = request.getParameter("telefono");
+		boolean seguir = false;
+		try {
+			int valid = Integer.parseInt(telefono);
+			seguir = true;
+		} catch (Exception e) {
+			seguir = false;
+		}
 		
-		Telefono addTelefono = new Telefono();
-		
-		boolean existeTelefono = false;
-		for(Telefono t : telefonos) {
-			if(t.getNumero().equals(telefono)) {
-				existeTelefono = true;
-				addTelefono = t;
-				break;
+		if(!telefono.equals("")) {
+			Telefono addTelefono = new Telefono();
+			
+			boolean existeTelefono = false;
+			for(Telefono t : telefonos) {
+				if(t.getNumero().equals(telefono)) {
+					existeTelefono = true;
+					addTelefono = t;
+					break;
+				}
+			}
+			
+			if(!existeTelefono) {
+				addTelefono.setNumero(telefono);
+				telefonoService.add(addTelefono);
+			}
+			
+			
+			Cliente clienteFinal = new Cliente();
+			for(Cliente cliente : clientes) {
+				if (cliente.getRut() == rut) {
+					clienteFinal = cliente;
+					telefonosCliente = cliente.getTelefonos();
+					telefonosCliente.add(addTelefono);
+					clienteFinal.setTelefonos(telefonosCliente);
+					clienteService.update(clienteFinal);
+					
+				}
 			}
 		}
 		
-		if(!existeTelefono) {
-			addTelefono.setNumero(telefono);
-			telefonoService.add(addTelefono);
-		}
 		
 		
-		Cliente clienteFinal = new Cliente();
-		for(Cliente cliente : clientes) {
-			if (cliente.getRut() == rut) {
-				clienteFinal = cliente;
-				telefonosCliente = cliente.getTelefonos();
-				telefonosCliente.add(addTelefono);
-				clienteFinal.setTelefonos(telefonosCliente);
-				clienteService.update(clienteFinal);
-				
-			}
-		}
 		response.sendRedirect("DetalleClientes.do");
 		
 	}
